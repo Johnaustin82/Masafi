@@ -26,7 +26,7 @@ export default function ContactUs() {
     }
 
     // Create mailto URL with form data
-    const mailtoUrl = `mailto:johnnyaustoh@gmail.com?subject=${encodeURIComponent(subject || `Message from ${name}`)}&body=${encodeURIComponent(
+    const mailtoUrl = `mailto:masafient@yahoo.com?subject=${encodeURIComponent(subject || `Message from ${name}`)}&body=${encodeURIComponent(
       `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
     )}`;
     

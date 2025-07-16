@@ -16,15 +16,27 @@ import {
   Car,
   Scissors,
   Wind,
-  Settings
+  Settings,
+  MessageCircle
 } from 'lucide-react';
+
 import { useNavigate } from 'react-router-dom';
 
 
 
 const Landingpage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showWhatsAppTooltip, setShowWhatsAppTooltip] = useState(false);
   const navigate = useNavigate()
+
+    // WhatsApp configuration
+    const whatsappNumber = "254722552636"; // Using the office line number
+    const whatsappMessage = "Hello! I'm interested in your power equipment. Can you help me?";
+  
+    const openWhatsApp = () => {
+      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+      window.open(url, '_blank');
+    };
 
   const products = [
     {
@@ -101,6 +113,10 @@ const Landingpage = () => {
     navigate("/product")
   }
 
+  function handleContact() {
+    navigate("/contact")
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -164,7 +180,7 @@ const Landingpage = () => {
             <button className="px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105" style={{backgroundColor: '#C17671', color: 'white'}} onClick={handleClick}>
               Explore Products
             </button>
-            <button className="px-8 py-4 bg-white rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105" style={{color: '#A32424'}}>
+            <button className="px-8 py-4 bg-white rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105" style={{color: '#A32424'}} onClick={handleContact}>
               Contact Us
             </button>
           </div>
@@ -362,35 +378,103 @@ const Landingpage = () => {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-4 bg-white rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105" style={{color: '#A32424'}}>
-              Call Now
-            </button>
-            <button className="px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105" style={{backgroundColor: '#C17671', color: 'white'}}>
-              Send Email
-            </button>
-          </div>
+         
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Footer with WhatsApp Integration */}
       <footer className="py-12 px-4" style={{backgroundColor: '#625A62'}}>
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="flex items-center justify-center mb-6">
-            <div className="w-12 h-12 rounded-lg flex items-center justify-center mr-3" style={{backgroundColor: '#A32424'}}>
-              <Zap className="w-8 h-8 text-white" />
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            {/* Company Info */}
+            <div className="md:col-span-2">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center mr-3" style={{backgroundColor: '#A32424'}}>
+                  <Zap className="w-8 h-8 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-white">Masafi Enterprises Ltd</h3>
+                  <p className="text-gray-300">Your Trusted Power Equipment Partner Since 2008</p>
+                </div>
+              </div>
+              <p className="text-gray-300 mb-4">
+                Leading supplier of power equipment and industrial tools across East Africa. 
+                Serving thousands of satisfied customers with quality products and excellent service.
+              </p>
             </div>
+
+            {/* Quick Links */}
             <div>
-              <h3 className="text-2xl font-bold text-white">Masafi Enterprises Ltd</h3>
-              <p className="text-gray-300">Your Trusted Power Equipment Partner Since 2008</p>
+              <h4 className="text-lg font-bold text-white mb-4">Quick Links</h4>
+              <ul className="space-y-2">
+                <li><a href="#home" className="text-gray-300 hover:text-white transition-colors">Home</a></li>
+                <li><a href="#about" className="text-gray-300 hover:text-white transition-colors">About Us</a></li>
+                <li><a href="#products" className="text-gray-300 hover:text-white transition-colors">Products</a></li>
+                <li><a href="#locations" className="text-gray-300 hover:text-white transition-colors">Locations</a></li>
+                <li><a href="#contact" className="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+              </ul>
+            </div>
+
+            {/* Contact & WhatsApp */}
+            <div>
+              <h4 className="text-lg font-bold text-white mb-4">Get In Touch</h4>
+              <div className="space-y-3">
+                <div className="flex items-center">
+                  <Phone className="w-5 h-5 text-gray-300 mr-3" />
+                  <span className="text-gray-300">0714 22 22 55</span>
+                </div>
+                <div className="flex items-center">
+                  <Mail className="w-5 h-5 text-gray-300 mr-3" />
+                  <span className="text-gray-300">masafient@yahoo.com</span>
+                </div>
+                
+                {/* WhatsApp Button in Footer */}
+                <button 
+                  onClick={openWhatsApp}
+                  className="flex items-center w-full px-4 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 mt-4"
+                  style={{backgroundColor: '#25D366', color: 'white'}}
+                >
+                  <MessageCircle className="w-5 h-5 mr-2" />
+                  Chat on WhatsApp
+                </button>
+              </div>
             </div>
           </div>
-          <p className="text-gray-300">
-            © 2025 Masafi Enterprises Ltd. All rights reserved. | Serving East Africa with Excellence
-          </p>
+
+          {/* Copyright */}
+          <div className="border-t border-gray-600 pt-8 text-center">
+            <p className="text-gray-300">
+              © 2024 Masafi Enterprises Ltd. All rights reserved. | Serving East Africa with Excellence
+            </p>
+          </div>
         </div>
       </footer>
+
+      {/* Floating WhatsApp Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <div className="relative">
+          {/* Tooltip */}
+          {showWhatsAppTooltip && (
+            <div className="absolute bottom-16 right-0 bg-black text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap">
+              Chat with us on WhatsApp!
+              <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-black"></div>
+            </div>
+          )}
+          
+          {/* WhatsApp Button */}
+          <button
+            onClick={openWhatsApp}
+            onMouseEnter={() => setShowWhatsAppTooltip(true)}
+            onMouseLeave={() => setShowWhatsAppTooltip(false)}
+            className="w-16 h-16 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center animate-pulse"
+            style={{backgroundColor: '#25D366'}}
+          >
+            <MessageCircle className="w-8 h-8 text-white" />
+          </button>
+        </div>
+      </div>
     </div>
+  
   );
 };
 
